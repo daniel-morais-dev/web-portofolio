@@ -1,28 +1,10 @@
 import React from 'react';
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
-import {createStyles, withStyles, WithStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 // import languages from '../../public/locales/supportedLanguages.json'
 import i18n from '../i18n';
-import { debug } from 'console';
+import 'antd/dist/antd.css';
+import { Select } from 'antd';
+const { Option } = Select;
 
-const styles = (theme: Theme) => createStyles({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-});
-
-interface Props extends WithStyles<typeof styles> {
-    supportedLanguages?: {};
-}
 
 const SetLanguage = (lng: string) =>{
   i18n.changeLanguage(lng);
@@ -33,36 +15,51 @@ const SetLanguage = (lng: string) =>{
 }
 
 
-const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-   SetLanguage(event.target.value as string);
-};
+const onChange = (value: any) => {
+  console.log(`selected ${value}`);
+  SetLanguage(value as string);
+}
 
+const onBlur = () => {
+  console.log('blur');
+}
 
-class LanguageSelect extends React.Component<Props> {
-  // const [language, SetLanguage] = React.useState('');
+const onFocus = () => {
+  console.log('focus');
+}
+
+const onSearch = (value: any) => {
+  console.log('search:', value);
+}
+
+class LanguageSelect extends React.Component {
 
   render() {
-    const { classes } = this.props;
-
     return (
       <div>
-        <FormControl className={classes.formControl}>
-          <InputLabel id="language-select-label">Age</InputLabel>
           <Select
-            labelId="language-select-label"
-            id="language-select"
-            value={i18n.language}
-            onChange={handleChange}
-          >        
-            <MenuItem value={"en"}>English</MenuItem>
-            <MenuItem value={"jpn"}>Japanese</MenuItem>
-            <MenuItem value={"pt"}>Portuguese</MenuItem>
+            showSearch
+            style={{ width: 200 }}
+            defaultValue={i18n.language}
+            placeholder="Select a language"
+            optionFilterProp="children"
+            onChange={onChange}
+            onFocus={onFocus}
+            onBlur={onBlur}
+            onSearch={onSearch}
+            filterOption={(input, option) =>
+              option?.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+            }
+          > 
+            <Option value="en">English</Option>
+            <Option value="jpn">Japanese</Option>
+            <Option value="pt">Portuguese</Option>
           </Select>
-        </FormControl>
       </div>
     )
   }
 }
 
 
-export default withStyles(styles)(LanguageSelect);
+export default LanguageSelect;
+
