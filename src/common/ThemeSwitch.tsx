@@ -2,8 +2,6 @@ import React from 'react';
 import 'antd/dist/antd.css';
 import { Switch } from 'antd';
 
-
-
 const ThemeSwitch = () => {
     const [theme, setTheme] = React.useState('light');
 
@@ -20,6 +18,4 @@ const ThemeSwitch = () => {
   
 }
 
-
 export default ThemeSwitch;
-
