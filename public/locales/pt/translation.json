@@ -1,3 +1,6 @@
 {
-    "welcome": "oi"
+    "navigation": {
+        "about": "Prefil",
+        "projects": "Projectos"
+    }
 }

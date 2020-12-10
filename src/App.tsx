@@ -1,16 +1,13 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
-import './App.css';
-import LanguageSelect from './common/LanguageSelect'
+import './styles/App.less';
+import Nav from './common/Nav'
 
 function App() {
-  const { t } = useTranslation();
   return (
       <div className="App">
-        <header className="App-header">
-          <LanguageSelect/>
-          {t("welcome")}
-        </header>
+        {/* <header className="App-header">
+        </header> */}
+        <Nav/>
       </div>
   );
 }
